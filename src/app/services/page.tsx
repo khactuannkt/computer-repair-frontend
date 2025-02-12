@@ -219,7 +219,7 @@ export default function ServicesPage(): JSX.Element {
             </h2>
             <p className="text-gray-300 text-lg">
               Our team of skilled technicians is ready to tackle any tech issue
-              you're facing. Get in touch with us today for fast, reliable
+              you are facing. Get in touch with us today for fast, reliable
               service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
