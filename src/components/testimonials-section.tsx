@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { ChevronUp, ChevronDown, Quote } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { JSX, useState } from "react";
+import Image from "next/image";
+import { ChevronUp, ChevronDown, Quote } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface Testimonial {
-  id: string
-  content: string
-  author: string
-  position: string
-  avatar: string
+  id: string;
+  content: string;
+  author: string;
+  position: string;
+  avatar: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -39,18 +39,20 @@ const testimonials: Testimonial[] = [
     position: "CEO",
     avatar: "/placeholder.svg",
   },
-]
+];
 
 export function TestimonialsSection(): JSX.Element {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
 
   const previousTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
+  };
 
   return (
     <section className="relative">
@@ -60,7 +62,9 @@ export function TestimonialsSection(): JSX.Element {
           <div className="max-w-2xl mx-auto lg:ml-auto lg:mr-0">
             <div className="space-y-4 mb-12">
               <div className="inline-block">
-                <h2 className="text-[#fdb813] text-xl font-medium">Testimonials</h2>
+                <h2 className="text-[#fdb813] text-xl font-medium">
+                  Testimonials
+                </h2>
                 <div className="mt-1 flex items-center gap-2">
                   <div className="w-8 h-0.5 bg-[#fdb813]" />
                   <div className="w-2 h-2 rounded-full bg-[#fdb813]" />
@@ -97,19 +101,28 @@ export function TestimonialsSection(): JSX.Element {
                 <CardContent className="relative p-8">
                   <Quote className="absolute top-4 right-4 w-12 h-12 text-[#fdb813] opacity-50" />
                   <div className="space-y-6">
-                    <p className="text-white/90 text-lg leading-relaxed">{testimonials[currentIndex].content}</p>
+                    <p className="text-white/90 text-lg leading-relaxed">
+                      {testimonials[currentIndex].content}
+                    </p>
                     <div className="flex items-center gap-4">
                       <div className="relative w-12 h-12 rounded-full overflow-hidden">
                         <Image
-                          src={testimonials[currentIndex].avatar || "/placeholder.svg"}
+                          src={
+                            testimonials[currentIndex].avatar ||
+                            "/placeholder.svg"
+                          }
                           alt={testimonials[currentIndex].author}
                           fill
                           className="object-cover"
                         />
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold">{testimonials[currentIndex].author}</h4>
-                        <p className="text-[#fdb813]">{testimonials[currentIndex].position}</p>
+                        <h4 className="text-white font-semibold">
+                          {testimonials[currentIndex].author}
+                        </h4>
+                        <p className="text-[#fdb813]">
+                          {testimonials[currentIndex].position}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -130,6 +143,5 @@ export function TestimonialsSection(): JSX.Element {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
