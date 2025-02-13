@@ -1,23 +1,39 @@
 import Link from "next/link";
 import { Facebook, Twitter, Linkedin, MapPin, Phone, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
 import { JSX } from "react";
-
-interface QuickLink {
-  label: string;
-  href: string;
-}
-
-const quickLinks: QuickLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact Us", href: "/contact" },
-];
+import { BrandInfo, ContactInfo, SocialLink } from "@/types";
+import { navigationItems } from "@/config/navigation";
 
 export function Footer(): JSX.Element {
+  //TODO: Get contact info from the API
+  const contactInfo: ContactInfo = {
+    email: "laptopsun.vn@gmail.com",
+    phone: "0857 270 270",
+    locationUrl: "https://maps.app.goo.gl/rDudjsszuEuZHsM5A",
+    location: "995 CMT8, Phường 7, Quận Tân Bình, TP.HCM",
+  };
+
+  //TODO: Get social links from the API
+  const socialLinks: SocialLink[] = [
+    { platform: "twitter", href: "#", icon: Twitter },
+    {
+      platform: "facebook",
+      href: "https://www.facebook.com/profile.php?id=61563907542801",
+      icon: Facebook,
+    },
+    { platform: "linkedin", href: "#", icon: Linkedin },
+  ];
+
+  const brandInfo: BrandInfo = {
+    name: "LaptopSun",
+    logo: "/logo.png",
+    shortDescription: "Your one-stop solution for all laptop repairs.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  };
+
   return (
     <footer className="bg-[#0a0f1c] text-white">
       <div className="container mx-auto px-4 py-12">
@@ -26,49 +42,42 @@ export function Footer(): JSX.Element {
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-2">
               <div className="text-2xl font-bold">
-                <span className="text-[#fdb813]">CM-</span>REPAIR
+                <span className="text-[#fdb813]">{brandInfo.name}</span>
               </div>
             </Link>
-            <p className="text-gray-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            <p className="text-gray-400">{brandInfo.description}</p>
             <div className="flex gap-4">
-              <Link
-                href="#"
-                className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-[#fdb813] hover:text-[#fdb813] transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-[#fdb813] hover:text-[#fdb813] transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-[#fdb813] hover:text-[#fdb813] transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </Link>
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <Link
+                    key={social.platform}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#fdb813] transition-colors"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-xl font-semibold mb-2">Quick Links</h2>
+              <h2 className="text-xl font-semibold mb-2">Truy Cập Nhanh</h2>
               <div className="w-12 h-0.5 bg-[#fdb813]" />
             </div>
             <nav className="space-y-3">
-              {quickLinks.map((link) => (
+              {navigationItems.map((item) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={item.href}
+                  href={item.href}
                   className="block text-gray-400 hover:text-[#fdb813] transition-colors"
                 >
-                  {link.label}
+                  {item.label}
                 </Link>
               ))}
             </nav>
@@ -77,30 +86,30 @@ export function Footer(): JSX.Element {
           {/* Contact Info */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-xl font-semibold mb-2">Contact Info</h2>
+              <h2 className="text-xl font-semibold mb-2">Liên Hệ</h2>
               <div className="w-12 h-0.5 bg-[#fdb813]" />
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-400">
                 <MapPin className="w-5 h-5 text-[#fdb813]" />
-                <span>Find A Location</span>
+                <span>Địa chỉ: {contactInfo.location}</span>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-3 text-gray-400">
                   <Phone className="w-5 h-5 text-[#fdb813]" />
-                  <span>Call Us : +927-189-095</span>
+                  <span>Hotline: {contactInfo.phone}</span>
                 </div>
-                <div className="pl-8 text-gray-400">+992-899-297</div>
+                {/* <div className="pl-8 text-gray-400">{contactInfo.phone}</div> */}
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Mail className="w-5 h-5 text-[#fdb813]" />
-                <span>info@Services.com</span>
+                <span>{contactInfo.email}</span>
               </div>
             </div>
           </div>
 
           {/* Newsletter */}
-          <div className="space-y-6">
+          {/* <div className="space-y-6">
             <div>
               <h2 className="text-xl font-semibold mb-2">Newsletter</h2>
               <div className="w-12 h-0.5 bg-[#fdb813]" />
@@ -118,7 +127,7 @@ export function Footer(): JSX.Element {
                 Submit Now
               </Button>
             </form>
-          </div>
+          </div>*/}
         </div>
       </div>
 
@@ -127,12 +136,12 @@ export function Footer(): JSX.Element {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400">
-              Copyright © 2022. All Rights Reserved By{" "}
+              Copyright © 2025. All Rights Reserved By{" "}
               <Link href="/" className="text-[#fdb813] hover:text-[#fdb813]/90">
-                CM-Repair
+                LaptopSun.vn
               </Link>
             </p>
-            <div className="flex gap-6">
+            {/* <div className="flex gap-6">
               <Link
                 href="#"
                 className="text-gray-400 hover:text-[#fdb813] transition-colors"
@@ -151,7 +160,7 @@ export function Footer(): JSX.Element {
               >
                 Our Themes
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
