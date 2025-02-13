@@ -3,6 +3,8 @@ import type React from "react";
 export interface BrandInfo {
   name: string;
   logo: string;
+  description: string;
+  shortDescription: string;
 }
 
 export interface NavigationItem {
